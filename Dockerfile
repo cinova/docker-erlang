@@ -6,10 +6,11 @@ RUN wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && \
     dpkg -i erlang-solutions_1.0_all.deb && \
     rm erlang-solutions_1.0_all.deb
 RUN apt-get build-dep -y erlang yaws
-RUN apt-get -y install erlang erlang-base-hipe erlang-manpages erlang-doc
+RUN apt-get -y install erlang erlang-base-hipe erlang-manpages erlang-doc \
+    erlang-mode erlang-dev erlang-src erlang-nox
 RUN git clone https://github.com/rebar/rebar.git && \
     cd rebar && ./bootstrap && mv rebar /usr/local/bin/ && \
     cd ../ && rm -rf rebar
 RUN curl -L -o ./lfetool https://raw.github.com/lfe/lfetool/dev-v1/lfetool && \
-    bash ./lfetool install && rm lfetool
+    bash ./lfetool install && mkdir -p ~/.lfe/libs && rm lfetool
 CMD ["erl"]
